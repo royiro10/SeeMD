@@ -24,7 +24,7 @@ async function main() {
   }
 
   const apiStore = new KVStoreFreeService(appKey);
-  const store = new LocalStorageCachedKVStore(apiStore, appKey);
+  const store = apiStore; // new LocalStorageCachedKVStore(apiStore, appKey);
   const app = document.body;
 
   const headerElements = makeHeaderElements();
