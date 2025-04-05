@@ -76,8 +76,10 @@ button:active {
 @media (max-width: 768px) {
   header {
     flex-direction: column;
+    justify-content: space-between;
     text-align: center;
     padding: var(--space-md) var(--space-sm);
+    height: 15vh;
   }
 
   .header-right {
@@ -92,6 +94,7 @@ button:active {
   }
 
   #result-placeholder {
+    font-size: 0.85rem;
     width: 100%;
   }
 
