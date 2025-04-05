@@ -1,0 +1,43 @@
+{
+  "name": "seemd",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Effortlessly share and view Markdown files online without sign-ups.",
+  "keywords": [
+    "markdown",
+    "share",
+    "online",
+    "viewer",
+    "editor",
+    "no-signup"
+  ],
+  "homepage": "https://royiro10.github.io/seemd",
+  "bugs": {
+    "url": "https://github.com/royiro10/SeeMD/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/royiro10/SeeMD.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "royiro10"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build && shx cp dist/index.html dist/404.html",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "shx": "^0.4.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.2.0"
+  },
+  "dependencies": {
+    "dompurify": "^3.2.4",
+    "highlight.js": "^11.11.1",
+    "marked": "^15.0.7",
+    "marked-highlight": "^2.2.1",
+    "tiny-markdown-editor": "^0.1.31"
+  }
+}
