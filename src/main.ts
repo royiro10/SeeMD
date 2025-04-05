@@ -17,14 +17,10 @@ document.addEventListener("DOMContentLoaded", main);
 async function main() {
   setupTheme("theme-midnight");
 
-  let [appKey, rootRef] = window.location.pathname.split("/").slice(1);
+  const [base, existingAppKey, rootRef] = window.location.pathname.split("/").slice(1);
 
-  if (!appKey) {
-    appKey = await KVStoreFreeService.generateAppKey();
-  }
-
-  const apiStore = new KVStoreFreeService(appKey);
-  const store = apiStore; // new LocalStorageCachedKVStore(apiStore, appKey);
+  console.log(existingAppKey, rootRef);
+  let { store, appKey } = await createStore(existingAppKey);
   const app = document.body;
 
   const headerElements = makeHeaderElements();
@@ -54,7 +50,10 @@ async function main() {
         const originUrl = window.location.origin;
         const data = await chunkTextAsync(getContent(), store);
 
-        headerElements.resultPlaceholder.textContent = `${originUrl}/${appKey}/${encodeUnicode(data)}`;
+        headerElements.resultPlaceholder.textContent = `${originUrl}/${base}/${appKey}/${encodeUnicode(data)}`;
+        const updatedStoreAndKey = await createStore();
+        store = updatedStoreAndKey.store;
+        appKey = updatedStoreAndKey.appKey;
       } catch (err) {
         headerElements.resultPlaceholder.textContent = `Failed to Generate: ${err}`;
       } finally {
@@ -71,5 +70,14 @@ async function main() {
   app.appendChild(appContainer.root);
 }
 
+async function createStore(appKey?: string) {
+  if (!appKey) {
+    appKey = await KVStoreFreeService.generateAppKey();
+  }
 
+  const apiStore = new KVStoreFreeService(appKey);
+  const store = new LocalStorageCachedKVStore(apiStore, appKey);
+
+  return { store, appKey };
+}
 

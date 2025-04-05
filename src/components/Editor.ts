@@ -9,9 +9,15 @@ export interface EditorProps {
     outputElement: HTMLElement;
 }
 
+const EditorPlaceHolder = `
+# ✨ Welcome to SeeMD  
+> Start editing your Markdown here...
+`;
+
 export function setupEditor(elements: EditorProps) {
     const tinyMDE = new Editor({
         element: elements.editorElement,
+        content: EditorPlaceHolder
     });
     tinyMDE.addEventListener("change", (e) => updateMarkdownPreview(e.content));
 
