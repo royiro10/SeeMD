@@ -1,0 +1,214 @@
+.TinyMDE {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  padding: var(--space-sm);
+  height: 100%;
+  outline: none;
+  border-radius: 0px 0px var(--border-radius--editor) var(--border-radius--editor);
+}
+
+.TMBlankLine {
+  height: var(--space-lg);
+}
+
+.TMH1,
+.TMSetextH1 {
+  font-size: var(--font-size-h1);
+  line-height: 32px;
+  font-weight: bold;
+  margin-bottom: var(--space-sm);
+}
+
+.TMSetextH1 {
+  margin-bottom: 0;
+}
+
+.TMSetextH1Marker {
+  margin-bottom: var(--space-sm);
+}
+
+.TMH2,
+.TMSetextH2 {
+  font-size: var(--font-size-h2);
+  line-height: 28px;
+  font-weight: bold;
+  margin-bottom: var(--space-xs);
+}
+
+.TMMark_TMCode,
+.TMFencedCodeBacktick,
+.TMFencedCodeTilde,
+.TMIndentedCode,
+.TMCode,
+.TMCodeFenceBacktickOpen,
+.TMCodeFenceTildeOpen,
+.TMCodeFenceBacktickClose,
+.TMCodeFenceTildeClose,
+.TMHTML,
+.TMHTMLBlock {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-code);
+}
+
+.TMFencedCodeBacktick,
+.TMFencedCodeTilde,
+.TMIndentedCode,
+.TMCode {
+  background-color: var(--color-code-bg);
+}
+
+.TMCodeFenceBacktickOpen,
+.TMCodeFenceTildeOpen {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.TMCodeFenceBacktickClose,
+.TMCodeFenceTildeClose {
+  border-top: 1px solid var(--color-border);
+}
+
+.TMCode {
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+}
+
+.TMInfoString {
+  color: var(--color-primary);
+}
+
+.TMBlockquote {
+  font-style: italic;
+  border-left: 2px solid var(--color-border);
+  padding-left: var(--space-md);
+  margin-left: var(--space-md);
+}
+
+.TMMark {
+  color: var(--color-muted);
+}
+
+.TMMark_TMH1,
+.TMMark_TMH2,
+.TMMark_TMUL,
+.TMMark_TMOL {
+  color: var(--color-secondary);
+}
+
+.TMImage {
+  text-decoration: underline;
+  text-decoration-color: var(--color-image-underline);
+}
+
+.TMLink {
+  text-decoration: underline;
+  text-decoration-color: var(--color-link-underline);
+}
+
+.TMLinkLabel {
+  text-decoration: underline;
+  font-family: var(--font-mono);
+}
+
+.TMLinkLabel_Definition,
+.TMLinkLabel_Valid {
+  color: var(--color-success);
+}
+
+.TMLinkLabel_Invalid {
+  color: var(--color-error);
+}
+
+.TMLinkTitle {
+  font-style: italic;
+}
+
+.TMLinkDestination,
+.TMAutolink {
+  text-decoration: underline;
+  color: var(--color-link-underline);
+}
+
+.TMHR {
+  position: relative;
+}
+
+.TMHR:before {
+  content: "";
+  position: absolute;
+  bottom: 50%;
+  left: 40%;
+  border-bottom: 2px solid var(--color-hr);
+  width: 20%;
+  z-index: 0;
+}
+
+.TMHTML {
+  color: var(--color-html);
+}
+
+.TMHTMLBlock {
+  color: var(--color-html-block);
+}
+
+.TMCommandBar {
+  background-color: var(--color-commandbar-bg);
+  height: 24px;
+  border: 4px solid var(--color-commandbar-bg);
+  border-radius: var(--border-radius--editor) var(--border-radius--editor) 0px 0px;
+  box-sizing: content-box;
+  display: flex;
+  user-select: none;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.TMCommandBar::-webkit-scrollbar {
+  display: none;
+}
+
+.TMCommandButton {
+  box-sizing: border-box;
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+  padding: 3px;
+  margin-right: var(--space-xs);
+  color: var(--color-button-text);
+  fill: var(--color-button-text);
+  text-align: center;
+  cursor: pointer;
+  vertical-align: middle;
+  font-size: 20px;
+  line-height: 18px;
+  font-family: var(--font-base);
+}
+
+.TMCommandDivider {
+  box-sizing: content-box;
+  height: 24px;
+  margin-left: var(--space-xs);
+  margin-right: var(--space-sm);
+  width: 0;
+  border-left: 1px solid var(--color-border);
+  border-right: 1px solid #ffffff;
+}
+
+.TMCommandButton_Active {
+  font-weight: bold;
+  color: var(--color-button-active-text);
+  background-color: var(--color-button-active-bg);
+  fill: var(--color-button-active-text);
+}
+
+.TMCommandButton_Inactive {
+  background-color: var(--color-commandbar-bg);
+}
+
+.TMCommandButton_Disabled {
+  color: var(--color-button-disabled);
+  fill: var(--color-button-disabled);
+}
