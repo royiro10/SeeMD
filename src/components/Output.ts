@@ -2,7 +2,7 @@ import "./markdown.css";
 
 import { IKeyValueStore } from "../lib/kvStore";
 import { reconstructTextAsync } from "../lib/textChunking";
-import { convertTextToMarkdown } from "../lib/textToMarkdown";
+import { convertElementToMarkdown } from "../lib/textToMarkdown";
 
 export async function setupOutputPreview(element: Element, rootRef: string, store: IKeyValueStore) {
     element.className += " content markdown-body";
@@ -15,8 +15,7 @@ export async function setupOutputPreview(element: Element, rootRef: string, stor
     tokenifyReferences();
 
     const reconstructed = await reconstructTextAsync(rootRef, store, onChunkReady);
-    element.innerHTML = convertTextToMarkdown(reconstructed);
-    console.log(element.innerHTML);
+    convertElementToMarkdown(element, reconstructed);
 
     function onChunkReady(key: string, content: string) {
         const tokenId = tokenMatches[key];

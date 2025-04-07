@@ -3,6 +3,12 @@ import DOMPurify from "dompurify";
 import { markedHighlight } from "marked-highlight";
 import hljs from "highlight.js";
 
+import CopyButtonPlugin from "./highlight-copy-wrapper";
+
+hljs.addPlugin(
+    new CopyButtonPlugin({})
+);
+
 const marked = new Marked(
     markedHighlight({
         emptyLangClass: 'hljs',
@@ -15,8 +21,14 @@ const marked = new Marked(
     })
 );
 
-export function convertTextToMarkdown(text: string) {
+export function convertElementToMarkdown(element: Element, text: string) {
     const html = marked.parse(text, { async: false });
     const sanitized = DOMPurify.sanitize(html);
-    return sanitized;
+
+    element.innerHTML = sanitized;
+
+    // hljs after highlights plugins (for copy button)
+    element.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightElement(block as HTMLElement);
+    });
 }

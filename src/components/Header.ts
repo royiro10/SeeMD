@@ -10,6 +10,7 @@ export function makeHeaderElements() {
     const button = document.createElement("button");
     button.textContent = "Generate";
     button.id = "generate-button";
+    button.className += "generate-button";
 
     const resultPlaceholder = document.createElement("div");
     resultPlaceholder.id = "result-placeholder";
