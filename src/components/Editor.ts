@@ -1,7 +1,7 @@
 import "./editor.css";
 
 import { Editor, CommandBar } from "tiny-markdown-editor";
-import { convertTextToMarkdown } from "../lib/textToMarkdown";
+import { convertElementToMarkdown } from "../lib/textToMarkdown";
 
 export interface EditorProps {
     editorElement: HTMLElement;
@@ -12,6 +12,12 @@ export interface EditorProps {
 const EditorPlaceHolder = `
 # ✨ Welcome to SeeMD  
 > Start editing your Markdown here...
+
+\`\`\`js
+function haveFun() {
+  assert(InternalAPI.isHavingFun());
+}
+\`\`\`
 `;
 
 export function setupEditor(elements: EditorProps) {
@@ -28,10 +34,10 @@ export function setupEditor(elements: EditorProps) {
 
     const output = elements.outputElement;
     output.className += " content markdown-body";
-    output.innerHTML = convertTextToMarkdown(tinyMDE.getContent());
+    updateMarkdownPreview(tinyMDE.getContent());
 
     function updateMarkdownPreview(text: string) {
-        output.innerHTML = convertTextToMarkdown(text);
+        convertElementToMarkdown(output, text);
     }
 
     return () => tinyMDE.getContent();
