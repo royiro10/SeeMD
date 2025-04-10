@@ -10,8 +10,6 @@ export async function setupOutputPreview(element: Element, rootRef: string, stor
     element.className += " content markdown-body";
 
     const laterCount = calculateOptimalLayersCount(80);
-    console.log(`Layers: ${laterCount}`);
-
     const loadingContainer = document.createElement("div");
     loadingContainer.id = "progress-bars-container";
 
