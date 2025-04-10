@@ -1,5 +1,4 @@
 import "./markdown.css";
-import "./output.css";
 
 import { IKeyValueStore } from "../lib/kvStore";
 import { reconstructTextAsync } from "../lib/textChunking";
@@ -26,7 +25,7 @@ export async function setupOutputPreview(element: Element, rootRef: string, stor
 
     convertElementToMarkdown(element, reconstructed);
 
-    function onChunkReady(key: string, content: string) {
+    function onChunkReady(key: string) {
         progressLayer.onChunk(parseInt(key.slice(3)));
     }
 }
