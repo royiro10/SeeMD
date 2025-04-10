@@ -29,6 +29,8 @@ export function convertElementToMarkdown(element: Element, text: string) {
 
     // hljs after highlights plugins (for copy button)
     element.querySelectorAll('pre code').forEach((block) => {
+        const safeCode = DOMPurify.sanitize(block.innerHTML); // Ensure sanitized code content
+        block.innerHTML = safeCode; // Re-assign sanitized content to the block
         hljs.highlightElement(block as HTMLElement);
     });
 }

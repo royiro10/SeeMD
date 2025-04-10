@@ -1,39 +1,33 @@
 import "./markdown.css";
+import "./output.css";
 
 import { IKeyValueStore } from "../lib/kvStore";
 import { reconstructTextAsync } from "../lib/textChunking";
 import { convertElementToMarkdown } from "../lib/textToMarkdown";
+import { createProgressLayer } from "./ProgressLayers";
 
 export async function setupOutputPreview(element: Element, rootRef: string, store: IKeyValueStore) {
     element.className += " content markdown-body";
 
-    // Regular expression to match tokens like [%someKey]
-    const tokenRegex = /\[%([^\]]+)\]/g;
-    const tokenMatches: Record<string, string> = {};
+    const laterCount = calculateOptimalLayersCount(80);
+    const loadingContainer = document.createElement("div");
+    loadingContainer.id = "progress-bars-container";
 
-    element.innerHTML = rootRef;
-    tokenifyReferences();
+    element.appendChild(loadingContainer);
+
+    const expectedChunksCount = parseKey(rootRef)!;
+    const progressLayer = createProgressLayer(loadingContainer, laterCount, expectedChunksCount);
 
     const reconstructed = await reconstructTextAsync(rootRef, store, onChunkReady);
+
+    progressLayer.markAllComplete();
+    await progressLayer.cleanup();
+    element.removeChild(loadingContainer);
+
     convertElementToMarkdown(element, reconstructed);
 
     function onChunkReady(key: string, content: string) {
-        const tokenId = tokenMatches[key];
-        const span = document.getElementById(tokenId);
-        if (span) {
-            span.outerHTML = content;
-            tokenifyReferences();
-        }
-    }
-
-    function tokenifyReferences() {
-        element.innerHTML = element.innerHTML.replace(tokenRegex, (_, key) => {
-            // Create a unique id for the placeholder
-            // TODO: better key generation
-            const id = "token_" + Math.random().toString(36).substr(2, 9);
-            tokenMatches[key] = id;
-            return `<span id="${id}" class="loading"></span>`;
-        });
+        progressLayer.onChunk(parseInt(key.slice(3)));
     }
 }
 
@@ -53,4 +47,32 @@ export function makeOutputElements() {
         root: outputContainer,
         output
     };
+}
+
+function calculateOptimalLayersCount(
+    screenHeightPercentage: number = 55,
+    estimatedBarHeight: number = 40
+): number {
+    // Get the viewport height
+    const viewportHeight = window.innerHeight;
+
+    // Calculate available height (50-60% of viewport)
+    const availableHeight = (viewportHeight * screenHeightPercentage) / 100;
+
+    // Calculate how many bars can fit
+    const optimalCount = Math.floor(availableHeight / estimatedBarHeight);
+
+    // Ensure at least 1 bar and cap at a reasonable maximum
+    return Math.max(1, Math.min(optimalCount, 20));
+}
+
+
+const pattern = /\[%key(\d+)\]/;
+
+function parseKey(input: string): number | null {
+    const match = input.match(pattern);
+    if (match) {
+        return parseInt(match[1], 10);
+    }
+    return null;
 }
